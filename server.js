@@ -1,5 +1,17 @@
 var express = require('express');
 
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
+
+
+app.post('/items', jsonParser, function(request, response) {
+    if (!('name' in request.body)) {
+        return response.sendStatus(400);
+    }
+
+    var item = storage.add(request.body.name);
+    response.status(201).json(item);
+});
 var Storage = {
   add: function(name) {
     var item = {name: name, id: this.setId};
