@@ -12,8 +12,8 @@ var Storage = {
 
 	delete: function(name) {
 		var item = {name: name, id: this.setId};
-		this.items.splice(item);
-		return storage;
+		this.items.splice(id, 1);
+		return items;
 	}
 };
 
