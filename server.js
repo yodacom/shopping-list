@@ -8,7 +8,13 @@ var Storage = {
 		this.items.push(item);
 		this.setId += 1;
 		return item;
-	} 
+	},
+
+	delete: function(name) {
+		var item = {name: name, id: this.setId};
+		this.items.splice(item);
+		return storage;
+	}
 };
 
 var createStorage = function() {
@@ -37,6 +43,15 @@ app.post("/items", jsonParser, function(request, response) {
 	}
 
 	var item = storage.add(request.body.name);
+	response.status(201).json(item);
+});
+
+app.delete("/items/:id", jsonParser, function(request, response) {
+	if (!("name" in request.body)) {
+		return response.sendStatus(400);
+	}
+
+	var item = storage.delete(request.body.name);
 	response.status(201).json(item);
 });
 
