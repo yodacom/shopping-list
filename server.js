@@ -60,7 +60,7 @@ app.post("/items", jsonParser, function(request, response) {
 	}
 
 	var item = storage.add(request.body.name);
-	response.status(201).json(item);
+	response.status(200).json(item);
 }),
 
 app.delete("/items/:id", jsonParser, function(request, response) {
@@ -83,3 +83,6 @@ app.put("items/:id", jsonParser, function(request,response){
 }),
 
 app.listen(process.env.PORT || 8080, process.env.IP);
+
+exports.app = app;
+exports.storage = storage;
