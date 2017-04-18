@@ -12,30 +12,23 @@ var Storage = {
 
 	delete: function(id) {
 		var index = this.items.findIndex((e)=>{
-			return e.id === +id;
-		});
-		console.log(index);
-
-		if (index == -1) {
+			return e.id === +id});
+		if (index === -1) {
 			return false;
 		} else {
 			this.items.splice(index, 1);
 			return true;
-		}
-		
+		}	
 	},
 
-	edit: function(id){
+	edit: function(id) {
 		var index= this.items.findIndex((e)=>{
-			return e.id === +id;
-		var item = {name: name, id: this.setId};
-		});
-		console.log(index);
-		
+			return e.id === +id;});		
 		if (index === -1) {
 			return false;
 		} else {
-			this.items.put[item] = name
+			this.items.put(req.params.index.name);
+			return true;
 		}
 	}
 };
@@ -80,7 +73,7 @@ app.delete("/items/:id", jsonParser, function(request, response) {
 }),
 
 app.put("items/:id", jsonParser, function(request,response){
-	var success = storage.edit(request.params.id);
+	var success = storage.edit(request.params.name);
 	if (success) 
 		response.status(200).json({message:"success"});
 	else {
