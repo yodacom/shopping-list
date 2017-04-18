@@ -12,7 +12,7 @@ var Storage = {
 
 	delete: function(id) {
 		var index = this.items.findIndex((e)=>{
-			return e.id === +id});
+			return e.id === +id;});
 		if (index === -1) {
 			return false;
 		} else {
@@ -22,15 +22,16 @@ var Storage = {
 	},
 
 	edit: function(id) {
-		var index= this.items.findIndex((e)=>{
+		var index = this.items.findIndex((e)=>{
 			return e.id === +id;});		
 		if (index === -1) {
 			return false;
 		} else {
-			this.items.put(req.params.index.name);
+			this.items.put(this.item.name);
 			return true;
-		}
+		}	
 	}
+	
 };
 
 var createStorage = function() {
@@ -73,7 +74,7 @@ app.delete("/items/:id", jsonParser, function(request, response) {
 }),
 
 app.put("items/:id", jsonParser, function(request,response){
-	var success = storage.edit(request.params.name);
+	var success = storage.edit(request.params.id);
 	if (success) 
 		response.status(200).json({message:"success"});
 	else {
