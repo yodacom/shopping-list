@@ -21,13 +21,13 @@ var Storage = {
 		}	
 	},
 
-	edit: function(id) {
+	edit: function(id, name) {
 		var index = this.items.findIndex((e)=>{
 			return e.id === +id;});		
 		if (index === -1) {
 			return false;
 		} else {
-			this.items.put(this.item.name);
+			this.items[index].name = name;
 			return true;
 		}	
 	}
@@ -61,7 +61,7 @@ app.post("/items", jsonParser, function(request, response) {
 
 	var item = storage.add(request.body.name);
 	response.status(200).json(item);
-}),
+});
 
 app.delete("/items/:id", jsonParser, function(request, response) {
 
@@ -71,16 +71,17 @@ app.delete("/items/:id", jsonParser, function(request, response) {
 	else {
 		response.status(400).json({messsage:"fail"});
 	}
-}),
+});
 
-app.put("items/:id", jsonParser, function(request,response){
-	var success = storage.edit(request.params.id);
+app.put("/items/:id", jsonParser, function(request,response){
+	var name = request.body.name;
+	var success = storage.edit(request.params.id, name);
 	if (success) 
 		response.status(200).json({message:"success"});
 	else {
 		response.status(400).json({message:"fail"});
 	}
-}),
+});
 
 app.listen(process.env.PORT || 8080, process.env.IP);
 
